@@ -1,5 +1,4 @@
-﻿using System;
-namespace Domain.Model;
+﻿namespace Domain.Model;
 
 public class Role
 {
@@ -9,5 +8,6 @@ public class Role
     public Role(string RoleName)
     {
         this.RoleName = RoleName;
+        CreationTime = DateTime.Now;
     }
 }

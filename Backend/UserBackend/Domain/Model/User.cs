@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Model;
+﻿namespace Domain.Model;
 
 using System;
 using System.Reflection.Metadata;
@@ -18,10 +17,14 @@ public class User
 
     public User(string FirstName, string LastName, string Email, string PhoneNumber, Role UserRole)
     {
+        this.UserId = Guid.NewGuid();
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
         this.PhoneNumber = PhoneNumber;
         this.UserRole = UserRole;
+        this.ProfileViews = 0;
+        LastLoginTime = DateTime.Now;
+        CreationTime = DateTime.Now;
     }
 }
