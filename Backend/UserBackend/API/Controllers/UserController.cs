@@ -18,32 +18,9 @@ public class UserController : ControllerBase
         _logger = logger;
     }
 
-    //[HttpGet(Name = "GetAllUsers")]
-    //public IEnumerable<User> Get()
-    //{
-
-    //    List<User> list = _userRepository.GetAllUsers();
-
-    //    foreach(User user in list)
-    //    {
-    //        Debug.Write(user.FirstName + " " + user.Posts[0].Title);
-    //    }
-
-    //    return list;
-
-    //}
-
     [HttpGet(Name = "GetAllUsers")]
     public ActionResult<List<User>> Get()
     {
-
-        //List<User> list = _userRepository.GetAllUsers();
-
-        //foreach (User user in list)
-        //{
-        //    Debug.Write(user.FirstName + " " + user.Posts[0].Title);
-        //}
         return Ok(_userRepository.GetAllUsers());
-
     }
 }
