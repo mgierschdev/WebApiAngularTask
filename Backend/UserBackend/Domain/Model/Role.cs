@@ -1,13 +1,11 @@
 ﻿namespace Domain.Model;
 
+using System;
+using System.Reflection.Metadata;
+
 public class Role
 {
+    public int Id { get; set; }
     public string RoleName { get; set; }
     public DateTime CreationTime { get; set; }
-
-    public Role(string RoleName)
-    {
-        this.RoleName = RoleName;
-        CreationTime = DateTime.Now;
-    }
 }

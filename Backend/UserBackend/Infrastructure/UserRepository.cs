@@ -2,15 +2,32 @@
 
 using System;
 using Domain.Model;
+using Domain.Util;
+using Microsoft.EntityFrameworkCore;
+
 
 public class UserRepository : IUserRepository
 {
-	public UserRepository()
-	{
-	}
+    public UserRepository()
+    {
 
-	public List<User> GetUsers()
-	{
-		return new List<User>();
-	}
+        // we load in ourcase the memory database, in which a different case the context could be a different DB SQL/non-SQL or a different provider
+        using (ApiContext context = new ApiContext())
+        {;
+            context.Roles.AddRange(Util.GetMockRoleList());
+            context.Users.AddRange(Util.GetMockUserList());
+            context.SaveChanges();
+        }
+    }
+
+    public List<User> GetAllUsers()
+    {
+        // We get the data from the contextDB
+        using (ApiContext context = new ApiContext())
+        {
+            // here we can filter the result
+            List<User> users = context.Users.ToList();
+            return users;
+        }
+    }
 }

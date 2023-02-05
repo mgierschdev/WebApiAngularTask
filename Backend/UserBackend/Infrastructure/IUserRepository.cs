@@ -5,6 +5,6 @@ using Domain.Model;
 
 public interface IUserRepository
 {
-    public List<User> GetUsers();
+    public List<User> GetAllUsers();
 }
 
