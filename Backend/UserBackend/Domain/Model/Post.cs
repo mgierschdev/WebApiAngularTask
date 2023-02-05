@@ -9,5 +9,4 @@ public class Post
     public string Title { get; set; }
     public string Content { get; set; }
     public DateTime CreationTime { get; set; }
-    public User User { get; set; }
 }

@@ -13,5 +13,6 @@ public class User
     public int ProfileViews { get; set; }
     public DateTime LastLoginTime { get; set; }
     public DateTime CreationTime { get; set; }
+    public Role Role { get; set; }
     public List<Post> Posts { get; set; }
 }
