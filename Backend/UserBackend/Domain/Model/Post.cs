@@ -3,9 +3,11 @@
 using System;
 using System.Reflection.Metadata;
 
-public class Role
+public class Post
 {
     public int Id { get; set; }
-    public string RoleName { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
     public DateTime CreationTime { get; set; }
+    public User User { get; set; }
 }

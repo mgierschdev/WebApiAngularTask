@@ -5,16 +5,6 @@ using Domain.Model;
 
 public static class Util
 {
-
-    public static List<Role> GetMockRoleList()
-    {
-        return new List<Role>
-        {
-           new Role{ RoleName = "User", CreationTime = DateTime.Now},
-           new Role{ RoleName = "Admin", CreationTime = DateTime.Now},
-        };
-    }
-
     public static List<User> GetMockUserList()
     {
         return new List<User>()
@@ -25,9 +15,9 @@ public static class Util
                     Email = "email@provider.com",
                     PhoneNumber = "(+43)12345678",
                     ProfileViews = 0,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now},
                     CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now},
+                    LastLoginTime = DateTime.Now,
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -37,7 +27,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -47,7 +37,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -57,7 +47,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -67,7 +57,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -77,7 +67,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
                 new User {
                     FirstName = "FirstName",
@@ -87,7 +77,7 @@ public static class Util
                     ProfileViews = 0,
                     CreationTime = DateTime.Now,
                     LastLoginTime = DateTime.Now,
-                    UserRole = new Role {RoleName = "User", CreationTime = DateTime.Now}},
+                    Posts = new List<Post> {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
 
             };
     }

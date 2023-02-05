@@ -14,8 +14,48 @@ public class UserRepository : IUserRepository
         // we load in ourcase the memory database, in which a different case the context could be a different DB SQL/non-SQL or a different provider
         using (ApiContext context = new ApiContext())
         {;
-            context.Roles.AddRange(Util.GetMockRoleList());
-            context.Users.AddRange(Util.GetMockUserList());
+            context.Users.AddRange(new List<User>()
+            {
+                new User {
+                    FirstName = "FirstName",
+                    LastName =  "LastName",
+                    Email = "email@provider.com",
+                    PhoneNumber = "(+43)12345678",
+                    ProfileViews = 0,
+                    CreationTime = DateTime.Now,
+                    LastLoginTime = DateTime.Now,
+                    Posts = new List<Post>() {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
+
+                new User {
+                    FirstName = "FirstName",
+                    LastName =  "LastName",
+                    Email = "email@provider.com",
+                    PhoneNumber = "(+43)12345678",
+                    ProfileViews = 0,
+                    CreationTime = DateTime.Now,
+                    LastLoginTime = DateTime.Now,
+                    Posts = new List<Post>() {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
+
+                new User {
+                    FirstName = "FirstName",
+                    LastName =  "LastName",
+                    Email = "email@provider.com",
+                    PhoneNumber = "(+43)12345678",
+                    ProfileViews = 0,
+                    CreationTime = DateTime.Now,
+                    LastLoginTime = DateTime.Now,
+                    Posts = new List<Post>() {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}},
+
+                new User {
+                    FirstName = "FirstName",
+                    LastName =  "LastName",
+                    Email = "email@provider.com",
+                    PhoneNumber = "(+43)12345678",
+                    ProfileViews = 0,
+                    CreationTime = DateTime.Now,
+                    LastLoginTime = DateTime.Now,
+                    Posts = new List<Post>() {new Post {Title = "Title", Content = "Content of the post", CreationTime = DateTime.Now}}}
+            });
             context.SaveChanges();
         }
     }
@@ -26,7 +66,9 @@ public class UserRepository : IUserRepository
         using (ApiContext context = new ApiContext())
         {
             // here we can filter the result
-            List<User> users = context.Users.ToList();
+            List<User> users = context.Users
+                .Include(a => a.Posts)
+                .ToList();
             return users;
         }
     }
