@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using Domain.User;
 using Infrastructure.Model;
 using Infrastructure.Util;
 using Microsoft.EntityFrameworkCore;
@@ -50,10 +51,22 @@ public class UserRepository : IUserRepository
         return user == null || user.Posts == null ? new List<Post>() : user.Posts;
     }
 
-    public Boolean CreateUser(User user)
+    public Boolean CreateUser(APIUser user)
     {
-        context.Users.Add(user);
+        User save = new User(user);
+        context.Users.Add(save);
         return context.SaveChanges() > 0;
+    }
 
+    public Boolean UpdateUser(APIUser user)
+    {
+        User save = context.Users
+            .Include(a => a.Posts)
+            .FirstOrDefault(a => a.Id == user.Id);
+
+        // we rewrite the user for the fields that are not null
+        save.Update(user);
+        context.Users.Add(save);
+        return context.SaveChanges() > 0;
     }
 }

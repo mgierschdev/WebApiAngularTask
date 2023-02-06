@@ -87,7 +87,7 @@ public class UserController : ControllerBase
             {
                 return BadRequest(response.Message);
             }
-            else if(!_userRepository.CreateUser(new User(user)))
+            else if(!_userRepository.CreateUser(user))
             {
                 // backend problem
                 return BadRequest("Could not save");
