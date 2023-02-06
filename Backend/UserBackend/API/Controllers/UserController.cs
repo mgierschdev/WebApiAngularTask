@@ -82,20 +82,18 @@ public class UserController : ControllerBase
             UserValidator userValidator = new UserValidator();
             APIResponse response = userValidator.ValidateNewUser(user);
 
-            if(response.Code == HTTP_STATUS.OK)
-            {
-                // we save the user
 
-
-                return Ok();
-            }
-            else
+            if(response.Code != HTTP_STATUS.OK)
             {
                 return BadRequest(response.Message);
             }
+            else if(!_userRepository.CreateUser(new User(user)))
+            {
+                // backend problem
+                return BadRequest("Could not save");
+            }
 
             return Ok();
-
         }
         catch (Exception e)
         {
