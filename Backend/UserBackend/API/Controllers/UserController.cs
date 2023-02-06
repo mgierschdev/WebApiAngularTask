@@ -74,7 +74,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost]
-    [Route("User/Create")]
+    [Route("Create")]
     public ActionResult<List<Post>> CreateUser([FromBody] APIUser user)
     {
         try
@@ -103,7 +103,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Route("User/Update")]
+    [Route("Update")]
     public ActionResult<List<Post>> UpdateUser([FromBody] APIUser user)
     {
         try
@@ -131,7 +131,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("User/Delete")]
+    [Route("Delete")]
     public ActionResult<List<Post>> DeleteUserPost([FromBody] APIUser user)
     {
         try
