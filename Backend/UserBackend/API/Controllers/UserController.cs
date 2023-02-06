@@ -110,7 +110,6 @@ public class UserController : ControllerBase
         {
             UserValidator userValidator = new UserValidator();
             APIResponse response = userValidator.ValidateUserUpdate(user);
-            Debug.Write("Validating "+response.Code);
 
             if (response.Code != HTTP_STATUS.OK)
             {
@@ -137,14 +136,24 @@ public class UserController : ControllerBase
     {
         try
         {
-            // we only delete the user but not the posts
+            UserValidator userValidator = new UserValidator();
+            APIResponse response = userValidator.ValidateDelete(user);
+
+            if (response.Code != HTTP_STATUS.OK)
+            {
+                return BadRequest(response.Message);
+            }
+            else if (!_userRepository.DeleteUser(user))
+            {
+                // backend problem
+                return BadRequest("Could not save");
+            }
 
             return Ok();
-
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetUserPosts", e.ToString());
+            _logger.LogError("Error ocurred DeleteUserPost", e.ToString());
             return NotFound();
         }
     }

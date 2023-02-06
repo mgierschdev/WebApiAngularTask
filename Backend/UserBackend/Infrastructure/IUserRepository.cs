@@ -11,4 +11,5 @@ public interface IUserRepository
     public List<Post> GetUserPosts(int id);
     public Boolean CreateUser(APIUser user);
     public Boolean UpdateUser(APIUser user);
+    Boolean DeleteUser(APIUser user);
 }

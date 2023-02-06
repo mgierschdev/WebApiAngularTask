@@ -27,15 +27,7 @@ public class UserValidator : AbstractValidator<APIUser>
             .NotNull()
             .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
 
-        ValidationResult result = this.Validate(user);
-
-        if (!result.IsValid)
-        {
-            string missingFields = Util.GetErrors(result.Errors);
-            return new APIResponse(missingFields, HTTP_STATUS.BAD_REQUEST);
-        }
-
-        return new APIResponse("Completed", HTTP_STATUS.OK);
+        return CheckResult(user);
     }
 
     public APIResponse ValidateUserUpdate(APIUser user)
@@ -57,6 +49,20 @@ public class UserValidator : AbstractValidator<APIUser>
         RuleFor(APIUser => APIUser.PhoneNumber)
             .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
 
+
+        return CheckResult(user);
+    }
+
+    public APIResponse ValidateDelete(APIUser user)
+    {
+        RuleFor(APIUser => APIUser.Id)
+            .NotNull();
+
+        return CheckResult(user);
+    }
+
+    public APIResponse CheckResult(APIUser user)
+    {
         ValidationResult result = this.Validate(user);
 
         if (!result.IsValid)

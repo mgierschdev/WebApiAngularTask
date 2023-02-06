@@ -68,4 +68,10 @@ public class UserRepository : IUserRepository
         context.Users.Entry(save).State = EntityState.Modified;
         return context.SaveChanges() > 0;
     }
+
+    public Boolean DeleteUser(APIUser user)
+    {
+        context.Remove(context.Users.Single(a => a.Id == 1));
+        return context.SaveChanges() > 0;
+    }
 }
