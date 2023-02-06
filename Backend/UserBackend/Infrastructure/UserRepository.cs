@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
         // this is just for development and presentation purposes 
         List<User> users = GetAllUsers();
 
-        if(users.Count < 0)
+        if(users.Count <= 0)
         {
             // we load in ourcase the memory database, in which a different case the context could be a different DB SQL/non-SQL or a different provider
             context.Users.AddRange(Util.Util.GetMockUserList());
