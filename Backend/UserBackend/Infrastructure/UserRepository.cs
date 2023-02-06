@@ -1,35 +1,44 @@
 ﻿namespace Infrastructure;
 
 using System;
+using System.Diagnostics;
 using Domain.Model;
 using Domain.Util;
 using Microsoft.EntityFrameworkCore;
 
-
 public class UserRepository : IUserRepository
 {
+    private readonly ApiContext context;
+
     public UserRepository()
     {
-
+        context = new ApiContext();
         // we load in ourcase the memory database, in which a different case the context could be a different DB SQL/non-SQL or a different provider
-        using (ApiContext context = new ApiContext())
-        {
-            context.Users.AddRange(Util.GetMockUserList());
-            context.SaveChanges();
-        }
+        context.Users.AddRange(Util.GetMockUserList());
+        context.SaveChanges();
     }
 
     public List<User> GetAllUsers()
     {
         // We get the data from the contextDB
-        using (ApiContext context = new ApiContext())
-        {
-            // here we can filter the result
-            List<User> users = context.Users
-                .Include(a => a.Posts)
-                .Include(a => a.Role)
-                .ToList();
-            return users;
-        }
+        // here we can filter the result
+        List<User> users = context.Users
+            .Include(a => a.Posts)
+            .ToList();
+        return users == null ? new List<User>() : users;
+    }
+
+    public List<Post> GetAllPosts()
+    {
+        return context.Posts.ToList();
+    }
+
+    public List<Post> GetUserPosts(int id)
+    {
+        User user= context.Users
+            .Include(a => a.Posts)
+            .FirstOrDefault(a => a.Id == id);
+          
+        return user == null || user.Posts == null ? new List<Post>() : user.Posts;
     }
 }
