@@ -11,9 +11,21 @@ public class UserValidator : AbstractValidator<APIUser>
 {
     public UserValidator()
     {
-        RuleFor(APIUser => APIUser.FirstName).NotNull();
-        RuleFor(APIUser => APIUser.Email).NotNull();
-        RuleFor(APIUser => APIUser.PhoneNumber).NotNull();
+        RuleFor(APIUser => APIUser.FirstName)
+            .NotNull()
+            .Length(2, 250);
+
+        RuleFor(APIUser => APIUser.LastName)
+        .Length(2, 250);
+
+        RuleFor(APIUser => APIUser.Email)
+            .NotNull()
+            .EmailAddress();
+
+        // Regex validates a 10 digit phone number, in different formats; + or ( 2 digits ) or 3 digits - 4-6 digits, 
+        RuleFor(APIUser => APIUser.PhoneNumber)
+            .NotNull()
+            .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
     }
 
     public APIResponse ValidateNewUser(APIUser user)
@@ -23,7 +35,7 @@ public class UserValidator : AbstractValidator<APIUser>
         if (!result.IsValid)
         {
             string missingFields = Util.GetErrors(result.Errors);
-            return new APIResponse("Missing "+ missingFields, HTTP_STATUS.BAD_REQUEST);
+            return new APIResponse(missingFields, HTTP_STATUS.BAD_REQUEST);
         }
 
         return new APIResponse("Completed", HTTP_STATUS.OK);

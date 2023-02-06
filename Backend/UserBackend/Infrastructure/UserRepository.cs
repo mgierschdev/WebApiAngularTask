@@ -35,10 +35,17 @@ public class UserRepository : IUserRepository
 
     public List<Post> GetUserPosts(int id)
     {
-        User user= context.Users
+        User user = context.Users
             .Include(a => a.Posts)
             .FirstOrDefault(a => a.Id == id);
           
         return user == null || user.Posts == null ? new List<Post>() : user.Posts;
+    }
+
+    public Boolean CreateUser(User user)
+    {
+        context.Users.Add(user);
+        return context.SaveChanges() > 0;
+
     }
 }

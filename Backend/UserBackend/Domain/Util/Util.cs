@@ -11,10 +11,10 @@ namespace Domain.Util
 			string result = "";
 			foreach(ValidationFailure validationFailure in errors)
 			{
-				result += validationFailure.PropertyName + " ";
+				result += validationFailure.PropertyName + ",";
 			}
 
-			return result;
+			return result.Substring(0, result.Length - 1);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Reflection.Metadata;
+using Domain.User;
 
 // Infrastructure model
 public class User
@@ -15,4 +16,16 @@ public class User
     public DateTime LastLoginTime { get; set; }
     public DateTime CreationTime { get; set; }
     public List<Post> Posts { get; set; }
+
+    public User(APIUser apiUser)
+    {
+        this.FirstName = apiUser.FirstName;
+        this.LastName = apiUser.LastName;
+        this.Email = apiUser.Email;
+        this.PhoneNumber = apiUser.PhoneNumber;
+        ProfileViews = 0;
+        LastLoginTime = DateTime.Now;
+        CreationTime = DateTime.Now;
+        Posts = new List<Post>();
+    }
 }

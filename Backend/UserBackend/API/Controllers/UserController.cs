@@ -6,6 +6,7 @@ using Infrastructure;
 using System.Diagnostics;
 using Domain.User;
 using Domain.Validator;
+using Domain.Util;
 
 [ApiController]
 [Route("[controller]")]
@@ -78,8 +79,20 @@ public class UserController : ControllerBase
     {
         try
         {
-            Debug.Print("username " + user.FirstName + " user email " + user.LastName); ;
             UserValidator userValidator = new UserValidator();
+            APIResponse response = userValidator.ValidateNewUser(user);
+
+            if(response.Code == HTTP_STATUS.OK)
+            {
+                // we save the user
+
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(response.Message);
+            }
 
             return Ok();
 
