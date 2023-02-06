@@ -1,10 +1,10 @@
 ﻿namespace API.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
-using Domain.Model;
+using Infrastructure.Model;
 using Infrastructure;
 using System.Diagnostics;
-using API.Model.User;
+using API.Domain.User;
 
 [ApiController]
 [Route("[controller]")]
@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Route("Users")]
+    [Route("All")]
     public ActionResult<List<User>> Get()
     {
         try

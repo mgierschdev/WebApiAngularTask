@@ -2,8 +2,8 @@
 
 using System;
 using System.Diagnostics;
-using Domain.Model;
-using Domain.Util;
+using Infrastructure.Model;
+using Infrastructure.Util;
 using Microsoft.EntityFrameworkCore;
 
 public class UserRepository : IUserRepository
@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
     {
         context = new ApiContext();
         // we load in ourcase the memory database, in which a different case the context could be a different DB SQL/non-SQL or a different provider
-        context.Users.AddRange(Util.GetMockUserList());
+        context.Users.AddRange(Util.Util.GetMockUserList());
         context.SaveChanges();
     }
 

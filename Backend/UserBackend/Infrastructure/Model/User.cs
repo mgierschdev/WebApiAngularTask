@@ -1,4 +1,4 @@
-﻿namespace Domain.Model;
+﻿namespace Infrastructure.Model;
 
 using System;
 using System.Reflection.Metadata;

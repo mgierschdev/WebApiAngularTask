@@ -1,7 +1,7 @@
-﻿namespace Domain.Util;
+﻿namespace Infrastructure.Util;
 using System;
 using System.Net.NetworkInformation;
-using Domain.Model;
+using Infrastructure.Model;
 
 public static class Util
 {

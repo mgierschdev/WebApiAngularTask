@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Util\" />
     <None Remove="FluentValidation" />
+    <None Remove="FluentValidation.AspNetCore" />
+    <None Remove="Model\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Util\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
   </ItemGroup>
 </Project>

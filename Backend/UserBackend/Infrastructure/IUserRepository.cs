@@ -1,7 +1,7 @@
 ﻿namespace Infrastructure;
 
 using System;
-using Domain.Model;
+using Infrastructure.Model;
 
 public interface IUserRepository
 {
