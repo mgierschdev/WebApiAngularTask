@@ -61,12 +61,11 @@ public class UserRepository : IUserRepository
     public Boolean UpdateUser(APIUser user)
     {
         User save = context.Users
-            .Include(a => a.Posts)
             .FirstOrDefault(a => a.Id == user.Id);
 
         // we rewrite the user for the fields that are not null
         save.Update(user);
-        context.Users.Add(save);
+        context.Users.Entry(save).State = EntityState.Modified;
         return context.SaveChanges() > 0;
     }
 }

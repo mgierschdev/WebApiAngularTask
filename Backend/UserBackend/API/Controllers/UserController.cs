@@ -33,7 +33,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetAllUsers", e);
+            _logger.LogError("Error ocurred GetAllUsers", e.ToString());
             return NotFound();
         }
     }
@@ -50,7 +50,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetAllUserPosts", e);
+            _logger.LogError("Error ocurred GetAllUserPosts", e.ToString());
             return NotFound();
         }
     }
@@ -67,7 +67,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetUserPosts", e);
+            _logger.LogError("Error ocurred GetUserPosts", e.ToString());
             return NotFound();
         }
     }
@@ -97,7 +97,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetUserPosts", e);
+            _logger.LogError("Error ocurred CreateUser", e.ToString());
             return NotFound();
         }
     }
@@ -110,7 +110,7 @@ public class UserController : ControllerBase
         {
             UserValidator userValidator = new UserValidator();
             APIResponse response = userValidator.ValidateUserUpdate(user);
-
+            Debug.Write("Validating "+response.Code);
 
             if (response.Code != HTTP_STATUS.OK)
             {
@@ -126,7 +126,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetUserPosts", e);
+            _logger.LogError("Error ocurred UpdateUser", e.ToString());
             return NotFound();
         }
     }
@@ -144,7 +144,7 @@ public class UserController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError("Error ocurred GetUserPosts", e);
+            _logger.LogError("Error ocurred GetUserPosts", e.ToString());
             return NotFound();
         }
     }
