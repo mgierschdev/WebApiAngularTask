@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Infrastructure.Model;
 using Infrastructure;
 using System.Diagnostics;
-using API.Domain.User;
+using Domain.User;
+using Domain.Validator;
 
 [ApiController]
 [Route("[controller]")]
@@ -78,6 +79,8 @@ public class UserController : ControllerBase
         try
         {
             Debug.Print("username " + user.FirstName + " user email " + user.LastName); ;
+            UserValidator userValidator = new UserValidator();
+
             return Ok();
 
         }

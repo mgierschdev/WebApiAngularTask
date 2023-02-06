@@ -11,10 +11,12 @@
     <None Remove="FluentValidation.AspNetCore" />
     <None Remove="Model\" />
     <None Remove="Validator\" />
+    <None Remove="Util\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Validator\" />
+    <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.4.0" />

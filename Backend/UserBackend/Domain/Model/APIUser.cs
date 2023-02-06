@@ -1,4 +1,4 @@
-﻿namespace API.Domain.User;
+﻿namespace Domain.User;
 using System;
 
 // Request API Model
