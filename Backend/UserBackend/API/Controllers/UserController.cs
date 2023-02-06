@@ -108,8 +108,21 @@ public class UserController : ControllerBase
     {
         try
         {
-            return Ok();
+            UserValidator userValidator = new UserValidator();
+            APIResponse response = userValidator.ValidateUserUpdate(user);
 
+
+            if (response.Code != HTTP_STATUS.OK)
+            {
+                return BadRequest(response.Message);
+            }
+            else if (!_userRepository.UpdateUser(user))
+            {
+                // backend problem
+                return BadRequest("Could not save");
+            }
+
+            return Ok();
         }
         catch (Exception e)
         {

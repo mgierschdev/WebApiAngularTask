@@ -9,14 +9,14 @@ using FluentValidation.Results;
 // All the buss logic on the Domain as specified in the DDD docs, easier to maintain and test
 public class UserValidator : AbstractValidator<APIUser>
 {
-    public UserValidator()
+    public APIResponse ValidateNewUser(APIUser user)
     {
         RuleFor(APIUser => APIUser.FirstName)
             .NotNull()
             .Length(2, 250);
 
         RuleFor(APIUser => APIUser.LastName)
-        .Length(2, 250);
+            .Length(2, 250);
 
         RuleFor(APIUser => APIUser.Email)
             .NotNull()
@@ -26,10 +26,7 @@ public class UserValidator : AbstractValidator<APIUser>
         RuleFor(APIUser => APIUser.PhoneNumber)
             .NotNull()
             .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
-    }
 
-    public APIResponse ValidateNewUser(APIUser user)
-    {
         ValidationResult result = this.Validate(user);
 
         if (!result.IsValid)
@@ -39,5 +36,35 @@ public class UserValidator : AbstractValidator<APIUser>
         }
 
         return new APIResponse("Completed", HTTP_STATUS.OK);
-    } 
+    }
+
+    public APIResponse ValidateUserUpdate(APIUser user)
+    {
+        RuleFor(APIUser => APIUser.Id)
+            .NotNull();
+
+
+        RuleFor(APIUser => APIUser.FirstName)
+            .Length(2, 250);
+
+        RuleFor(APIUser => APIUser.LastName)
+            .Length(2, 250);
+
+        RuleFor(APIUser => APIUser.Email)
+            .EmailAddress();
+
+        // Regex validates a 10 digit phone number, in different formats; + or ( 2 digits ) or 3 digits - 4-6 digits, 
+        RuleFor(APIUser => APIUser.PhoneNumber)
+            .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
+
+        ValidationResult result = this.Validate(user);
+
+        if (!result.IsValid)
+        {
+            string missingFields = Util.GetErrors(result.Errors);
+            return new APIResponse(missingFields, HTTP_STATUS.BAD_REQUEST);
+        }
+
+        return new APIResponse("Completed", HTTP_STATUS.OK);
+    }
 }
