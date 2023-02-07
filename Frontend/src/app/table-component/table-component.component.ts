@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-component',
+
+
   templateUrl: './table-component.component.html',
   styleUrls: ['./table-component.component.css']
 })
@@ -19,8 +21,6 @@ export class TableComponentComponent {
   @Input()
   userTemplate: boolean = true;
 
-  test!: User[];
-
   public constructor(private http: HttpClient) {
   }
 
@@ -28,7 +28,7 @@ export class TableComponentComponent {
     this.GetUserData();
     this.GetPostData();
   }
-  
+
   public SetUserTemplate(val: boolean) {
     this.userTemplate = val;
   }
@@ -44,9 +44,9 @@ export class TableComponentComponent {
 
   public GetPostData() {
     var response = this.http
-      .get<User[]>("https://localhost:7066/User/Posts")
+      .get<Post[]>("https://localhost:7066/User/Posts")
       .subscribe(response => {
-        this.userList = response;
+        this.postsList = response;
         console.log(this.userList);
       });
   }
