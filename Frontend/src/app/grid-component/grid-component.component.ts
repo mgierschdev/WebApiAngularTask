@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TableComponentComponent } from '../table-component/table-component.component';
 
 export interface Tile {
   color: string;
@@ -14,10 +15,7 @@ export interface Tile {
 })
 
 export class GridComponentComponent {
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+  title = 'Example .Net 0.6 CRUD';
+  today: number = Date.now();
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 }
