@@ -34,7 +34,7 @@
 </div>
 
 <!-- Post table template -->
-<div *ngIf="PostsList">
+<div *ngIf="!UserTemplate">
   <table mat-table [dataSource]="UserList" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->

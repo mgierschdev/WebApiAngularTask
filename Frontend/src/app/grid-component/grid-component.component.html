@@ -1,10 +1,10 @@
 <mat-grid-list cols="4" rowHeight="100px">
-    <mat-grid-tile colspan="4" rowspan="1" style="background:lightblue;">
-        {{title}}
+    <mat-grid-tile colspan="4" rowspan="1" style="background:#E8EAF6;">
+        <div class="text"> {{title}}</div>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="4" rowspan="5" style="background:white;">
-        <div class="content" role="main">
+    <mat-grid-tile colspan="4" rowspan="7" style="background:#ffffff;">
+        <div class="content" role="main" style="width: 100%;">
             <mat-tab-group>
                 <mat-tab label="Users">
                     <app-table-component></app-table-component>
@@ -17,7 +17,7 @@
         </div>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="4" rowspan="1" style="background:lightblue;">
-        {{today | date}}
+    <mat-grid-tile colspan="4" rowspan="1" style="background:#E8EAF6;">
+       <div class="text">{{today | date}}</div>
     </mat-grid-tile>
 </mat-grid-list>
