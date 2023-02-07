@@ -8,17 +8,21 @@ export interface Tile {
 }
 
 export interface User {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  profileViews: string;
+  lastLoginTime: string;
+  creationTime: string;
 }
 
 export interface Post {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  id: string;
+  title: string;
+  content: string;
+  creationTime: string;
 }
 
 @Component({

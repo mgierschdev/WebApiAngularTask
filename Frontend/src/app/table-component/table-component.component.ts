@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
 
 @Component({
@@ -7,46 +8,52 @@ import { User, Post } from '../app.component';
   styleUrls: ['./table-component.component.css']
 })
 
+// @Injectable()
 export class TableComponentComponent {
-  @Input() UserList: User[];
-  @Input() PostsList: Post[];
-  displayedColumnsUser: string[] = ['position', 'name', 'weight', 'symbol'];
-  displayedColumnsPost: string[] = ['position', 'name', 'weight', 'symbol'];
-  UserTemplate: boolean = true;
+  @Input() userList: User[];
+  @Input() postsList: Post[];
+  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime'];
+  displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
+  userTemplate: boolean = true;
+  // private API: HttpClient;
 
-  public constructor() {
+  public constructor(/*private httpClient: HttpClient*/) {
     // To be loaded from the backend
-    this.UserList = this.USER_DATA;
-    this.PostsList = this.POST_DATA;
+    this.userList = this.USER_DATA;
+    this.postsList = this.POST_DATA;
+    // this.API = httpClient;
+
+    // this.GetUserData();
+    // this.GetPosttData();
   }
 
   public SetUserTemplate(val: boolean) {
-    this.UserTemplate = val;
+    this.userTemplate = val;
   }
 
+  // public GetUserData() {
+  //   console.log(this.API.get('https://localhost:7066/User/All'));
+  // }
+
+  // public GetPosttData() {
+  //   console.log(this.API.get('https://localhost:7066/User/Posts'));
+  // }
+
   USER_DATA: User[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+    { id: '1', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '2', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '3', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '4', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '5', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '6', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
+    { id: '7', firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: '1', lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
   ];
 
-  POST_DATA: User[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  POST_DATA: Post[] = [
+    { id: '1', title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
+    { id: '2', title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
+    { id: '3', title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
+    { id: '4', title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
+    { id: '5', title: 'Post Title', content: 'Content', creationTime: '01/01/2023' }
   ];
 }
