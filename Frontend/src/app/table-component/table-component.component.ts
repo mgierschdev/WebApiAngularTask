@@ -1,19 +1,5 @@
 import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-
-export class AppComponent {
-  title = 'Example .Net 0.6 CRUD';
-  today: number = Date.now();
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-}
-
-// Table content
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -31,16 +17,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
   { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
 ];
 
-// grid test
-
-export class GridListDynamicExample {
-  tiles = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
+@Component({
+  selector: 'app-table-component',
+  templateUrl: './table-component.component.html',
+  styleUrls: ['./table-component.component.css']
+})
+export class TableComponentComponent {
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = ELEMENT_DATA;
 }
