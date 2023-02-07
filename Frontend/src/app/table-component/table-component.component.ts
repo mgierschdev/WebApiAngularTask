@@ -1,6 +1,8 @@
 import { Component, Input, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-component',
@@ -10,55 +12,42 @@ import { User, Post } from '../app.component';
 
 // @Injectable()
 export class TableComponentComponent {
-  @Input() userList: User[];
-  @Input() postsList: Post[];
+  userList!: User[];
+  postsList!: Post[];
   displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
   @Input()
   userTemplate: boolean = true;
-  private API: HttpClient;
 
-  public constructor(private httpClient: HttpClient) {
-    // To be loaded from the backend
-    this.userList = this.USER_DATA;
-    this.postsList = this.POST_DATA;
-    this.API = httpClient;
+  test!: User[];
 
-
-    
-    const req = this.API.get<User>('https://localhost:7066/User/All');
-    req.subscribe();
-    console.log(req);
-
+  public constructor(private http: HttpClient) {
   }
 
+  ngOnInit() {
+    this.GetUserData();
+    this.GetPostData();
+  }
+  
   public SetUserTemplate(val: boolean) {
     this.userTemplate = val;
   }
 
-  // public GetUserData() {
-  //   console.log(this.API.get('https://localhost:7066/User/All'));
-  // }
+  public GetUserData() {
+    var response = this.http
+      .get<User[]>("https://localhost:7066/User/All")
+      .subscribe(response => {
+        this.userList = response;
+        console.log(this.userList);
+      });
+  }
 
-  // public GetPosttData() {
-  //   console.log(this.API.get('https://localhost:7066/User/Posts'));
-  // }
-
-  USER_DATA: User[] = [
-    { id: 1, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 2, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 3, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 4, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 5, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 6, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-    { id: 7, firstName: 'name', lastName: 'name', email: 'name', phoneNumber: 'name', profileViews: 1, lastLoginTime: '01/01/2023', creationTime: '01/01/2023' },
-  ];
-
-  POST_DATA: Post[] = [
-    { id: 1, title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
-    { id: 2, title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
-    { id: 3, title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
-    { id: 4, title: 'Post Title', content: 'Content', creationTime: '01/01/2023' },
-    { id: 5, title: 'Post Title', content: 'Content', creationTime: '01/01/2023' }
-  ];
+  public GetPostData() {
+    var response = this.http
+      .get<User[]>("https://localhost:7066/User/Posts")
+      .subscribe(response => {
+        this.userList = response;
+        console.log(this.userList);
+      });
+  }
 }
