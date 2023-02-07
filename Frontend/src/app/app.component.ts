@@ -8,18 +8,18 @@ export interface Tile {
 }
 
 export interface User {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
-  profileViews: string;
+  profileViews: number;
   lastLoginTime: string;
   creationTime: string;
 }
 
 export interface Post {
-  id: string;
+  id: number;
   title: string;
   content: string;
   creationTime: string;

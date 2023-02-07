@@ -8,6 +8,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { GridComponentComponent } from './grid-component/grid-component.component';
 import { TableComponentComponent } from './table-component/table-component.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TableComponentComponent } from './table-component/table-component.compo
     BrowserAnimationsModule,
     MatTabsModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
