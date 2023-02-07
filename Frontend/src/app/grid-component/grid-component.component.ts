@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from '../app.component';
 
 @Component({
   selector: 'app-grid-component',
