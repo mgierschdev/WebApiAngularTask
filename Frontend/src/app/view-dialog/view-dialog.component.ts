@@ -1,9 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-export interface DialogData {
-  name: string;
-}
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { User } from '../app.component';
 
 @Component({
   selector: 'dialog-elements-posts-dialog',
@@ -12,7 +9,7 @@ export interface DialogData {
 export class DialogElementsPostsDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogElementsPostsDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: User,
   ) { }
   onNoClick(): void {
     this.dialogRef.close();

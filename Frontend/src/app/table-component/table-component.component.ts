@@ -4,6 +4,12 @@ import { User, Post } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
 
+enum DialogType {
+  VIEW = 1,
+  EDIT = 2,
+  DELETE = 3
+}
+
 @Component({
   selector: 'app-table-component',
   templateUrl: './table-component.component.html',
@@ -13,9 +19,7 @@ import { DialogElementsPostsDialog } from '../view-dialog/view-dialog.component'
 export class TableComponentComponent {
   userList!: User[];
   postsList!: Post[];
-  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email',
-    'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime',
-    'view', 'edit', 'delete'];
+  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime', 'view', 'edit', 'delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
 
   @Input()
@@ -49,15 +53,18 @@ export class TableComponentComponent {
         console.log(this.userList);
       });
   }
+  
+  openDialog(type: DialogType) {
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogElementsPostsDialog,
-      {
-        data: { name: this.name },
+    if (type == DialogType.VIEW) {
+      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+        {
+          data: { name: this.name },
+        });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
       });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    }
   }
 }
