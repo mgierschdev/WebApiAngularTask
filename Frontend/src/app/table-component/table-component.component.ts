@@ -16,8 +16,11 @@ import { map } from 'rxjs/operators';
 export class TableComponentComponent {
   userList!: User[];
   postsList!: Post[];
-  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime'];
+  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 
+  'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime',
+  'View','Edit','Delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
+
   @Input()
   userTemplate: boolean = true;
 
