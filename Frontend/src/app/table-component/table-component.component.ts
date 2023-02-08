@@ -64,10 +64,32 @@ export class TableComponentComponent {
         console.log('The dialog was closed');
       });
     } else if (type == DialogType.EDIT) {
+      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+        {
+          data: user,
+        });
 
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
     } else if (type == DialogType.DELETE) {
+      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+        {
+          data: user,
+        });
 
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
     } else if (type == DialogType.CREATE) {
+      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+        {
+          data: user,
+        });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
 
     }
   }

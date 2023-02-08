@@ -17,14 +17,17 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 import { GridComponentComponent } from './grid-component/grid-component.component';
 import { TableComponentComponent } from './table-component/table-component.component';
-import { DialogElementsPostsDialog } from './view-dialog/view-dialog.component';
+import { DialogElementsCreateDialog, DialogElementsDeleteDialog, DialogElementsEditDialog, DialogElementsPostsDialog } from './view-dialog/view-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponentComponent,
     TableComponentComponent,
-    DialogElementsPostsDialog
+    DialogElementsPostsDialog,
+    DialogElementsCreateDialog,
+    DialogElementsEditDialog,
+    DialogElementsDeleteDialog
   ],
   imports: [
     BrowserModule,

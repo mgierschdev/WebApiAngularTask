@@ -26,7 +26,7 @@ export class DialogElementsPostsDialog {
 })
 export class DialogElementsEditDialog {
   constructor(
-    public dialogRef: MatDialogRef<DialogElementsPostsDialog>,
+    public dialogRef: MatDialogRef<DialogElementsEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) { }
   onNoClick(): void {
@@ -41,7 +41,7 @@ export class DialogElementsEditDialog {
 })
 export class DialogElementsDeleteDialog {
   constructor(
-    public dialogRef: MatDialogRef<DialogElementsPostsDialog>,
+    public dialogRef: MatDialogRef<DialogElementsDeleteDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) { }
   onNoClick(): void {
@@ -56,7 +56,7 @@ export class DialogElementsDeleteDialog {
 })
 export class DialogElementsCreateDialog {
   constructor(
-    public dialogRef: MatDialogRef<DialogElementsPostsDialog>,
+    public dialogRef: MatDialogRef<DialogElementsCreateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) { }
   onNoClick(): void {
