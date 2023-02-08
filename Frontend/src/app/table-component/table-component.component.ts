@@ -1,39 +1,31 @@
-import { Component, Input, Injectable } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-component',
-
-
   templateUrl: './table-component.component.html',
   styleUrls: ['./table-component.component.css']
 })
 
-// @Injectable()
 export class TableComponentComponent {
   userList!: User[];
   postsList!: Post[];
-  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 
-  'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime',
-  'View','Edit','Delete'];
+  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email',
+    'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime',
+    'View', 'Edit', 'Delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
 
   @Input()
   userTemplate: boolean = true;
 
-  public constructor(private http: HttpClient) {
+  public constructor(private http: HttpClient, public dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.GetUserData();
     this.GetPostData();
-  }
-
-  public SetUserTemplate(val: boolean) {
-    this.userTemplate = val;
   }
 
   public GetUserData() {
