@@ -1,11 +1,35 @@
 <h1 mat-dialog-title>{{data.firstName}} Posts</h1>
 <div mat-dialog-content>
-  <p><b>User:</b> {{data.email}}</p>
-  <p><b>number of posts:</b> {{data.posts.length}}</p>
-  <li *ngFor="let post of data.posts">
-    <b>Title:</b> {{ post.title }}
-  </li>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-</div>
+  <p>
+    <mat-form-field hintLabel="Max 250 characters" appearance="fill">
+      <mat-label>FirstName:</mat-label>
+      <input matInput [formControl]="firstName"  #input maxlength="250" placeholder="{{data.firstName}}" value="{{data.firstName}}">
+      <mat-hint align="end">{{input.value.length}}/250</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field hintLabel="Max 250 characters" appearance="fill">
+      <mat-label>LastName:</mat-label>
+      <input matInput [formControl]="lastName" #input maxlength="250" placeholder="{{data.lastName}}" value="{{data.lastName}}">
+      <mat-hint align="end">{{input.value.length}}/250</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input matInput [formControl]="email" placeholder="{{data.email}}" value="{{data.email}}">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field hintLabel="Max 14 characters" appearance="fill">
+      <mat-label>PhoneNumber:</mat-label>
+      <input matInput [formControl]="phoneNumber"  #input maxlength="14" placeholder="{{data.phoneNumber}}" value="{{data.phoneNumber}}">
+      <mat-hint align="end">{{input.value.length}}/14</mat-hint>
+    </mat-form-field>
+  </p>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="acceptedDialog(data)" color="primary">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>

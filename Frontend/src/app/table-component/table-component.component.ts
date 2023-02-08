@@ -2,14 +2,8 @@ import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
-
-enum DialogType {
-  VIEW = 1,
-  EDIT = 2,
-  DELETE = 3,
-  CREATE = 4
-}
+import { DialogElementsCreateDialog, DialogElementsDeleteDialog, DialogElementsEditDialog, DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
+import { DialogType } from '../app.component';
 
 @Component({
   selector: 'app-table-component',
@@ -59,21 +53,24 @@ export class TableComponentComponent {
         {
           data: user,
         });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
     } else if (type == DialogType.EDIT) {
-      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+      const dialogRef = this.dialog.open(DialogElementsEditDialog,
         {
           data: user,
         });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        console.log('The dialog was closed ' + result.data);
+
+        if (result.data != undefined) {
+          // we update the API
+          console.log(result.data.firstName);
+
+        }
       });
+
     } else if (type == DialogType.DELETE) {
-      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+      const dialogRef = this.dialog.open(DialogElementsDeleteDialog,
         {
           data: user,
         });
@@ -82,7 +79,7 @@ export class TableComponentComponent {
         console.log('The dialog was closed');
       });
     } else if (type == DialogType.CREATE) {
-      const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+      const dialogRef = this.dialog.open(DialogElementsCreateDialog,
         {
           data: user,
         });

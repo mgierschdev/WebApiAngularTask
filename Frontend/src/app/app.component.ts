@@ -9,7 +9,7 @@ export interface User {
   profileViews: number;
   lastLoginTime: string;
   creationTime: string;
-  posts : Post[];
+  posts: Post[];
 }
 
 export interface Post {
@@ -17,6 +17,18 @@ export interface Post {
   title: string;
   content: string;
   creationTime: string;
+}
+
+export enum DialogAction {
+  CLOSE = 1,
+  SUBMMIT = 2
+}
+
+export enum DialogType {
+  VIEW = 1,
+  EDIT = 2,
+  DELETE = 3,
+  CREATE = 4
 }
 
 @Component({

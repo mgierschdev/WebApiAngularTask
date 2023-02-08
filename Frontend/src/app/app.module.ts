@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { GridComponentComponent } from './grid-component/grid-component.component';
 import { TableComponentComponent } from './table-component/table-component.component';
@@ -43,6 +44,8 @@ import { DialogElementsCreateDialog, DialogElementsDeleteDialog, DialogElementsE
     MatToolbarModule,
     MatDialogModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }],
   bootstrap: [AppComponent]
