@@ -27,11 +27,11 @@ section {
 .example-button-container {
   display: flex;
   justify-content: center;
-  width: 120px;
+  width: 160px;
 }
 
 .table-container {
-  height: 80%;
+  height: 170%;
   max-width: 100%;
   overflow: auto;
 }

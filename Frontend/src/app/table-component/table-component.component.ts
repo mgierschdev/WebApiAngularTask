@@ -25,9 +25,6 @@ export class TableComponentComponent {
   @Input()
   userTemplate: boolean = true;
 
-  //dialog test 
-  name!: string;
-
   public constructor(private http: HttpClient, public dialog: MatDialog) {
   }
 
