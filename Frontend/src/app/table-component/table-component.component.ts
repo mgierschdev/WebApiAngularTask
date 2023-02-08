@@ -7,7 +7,8 @@ import { DialogElementsPostsDialog } from '../view-dialog/view-dialog.component'
 enum DialogType {
   VIEW = 1,
   EDIT = 2,
-  DELETE = 3
+  DELETE = 3,
+  CREATE = 4
 }
 
 @Component({
@@ -62,6 +63,12 @@ export class TableComponentComponent {
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
       });
+    } else if (type == DialogType.EDIT) {
+
+    } else if (type == DialogType.DELETE) {
+
+    } else if (type == DialogType.CREATE) {
+
     }
   }
 }
