@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
+<h1 mat-dialog-title>{{data.firstName}} Posts</h1>
 <div mat-dialog-content>
-  <p><b>User:</b> {{data.firstName}}</p>
+  <p><b>User:</b> {{data.email}}</p>
   <p><b>number of posts:</b> {{data.posts.length}}</p>
   <li *ngFor="let post of data.posts">
     <b>Title:</b> {{ post.title }}
