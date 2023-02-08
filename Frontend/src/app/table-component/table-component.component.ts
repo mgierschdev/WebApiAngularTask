@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
