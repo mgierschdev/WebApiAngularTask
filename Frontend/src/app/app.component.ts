@@ -9,6 +9,7 @@ export interface User {
   profileViews: number;
   lastLoginTime: string;
   creationTime: string;
+  posts : Post[];
 }
 
 export interface Post {
