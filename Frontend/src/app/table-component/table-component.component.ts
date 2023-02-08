@@ -53,13 +53,13 @@ export class TableComponentComponent {
         console.log(this.userList);
       });
   }
-  
-  openDialog(type: DialogType) {
+
+  openDialog(type: DialogType, user: User) {
 
     if (type == DialogType.VIEW) {
       const dialogRef = this.dialog.open(DialogElementsPostsDialog,
         {
-          data: { name: this.name },
+          data: user,
         });
 
       dialogRef.afterClosed().subscribe(result => {
