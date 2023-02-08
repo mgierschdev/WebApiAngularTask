@@ -18,8 +18,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { GridComponentComponent } from './grid-component/grid-component.component';
 import { TableComponentComponent } from './table-component/table-component.component';
 import { DialogElementsExampleDialog, ViewDialogComponent } from './view-dialog/view-dialog.component';
-import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +25,6 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     GridComponentComponent,
     TableComponentComponent,
     ViewDialogComponent,
-    EditDialogComponent,
-    DeleteDialogComponent,
     DialogElementsExampleDialog
   ],
   imports: [
