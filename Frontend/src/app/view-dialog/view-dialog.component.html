@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>Dialog with elements</h1>
 <div mat-dialog-content>
-  User: {{data.firstName}}, number of posts {{data.posts.length}}.
+  <p><b>User:</b> {{data.firstName}}</p>
+  <p><b>number of posts:</b> {{data.posts.length}}</p>
+  <li *ngFor="let post of data.posts">
+    <b>Title:</b> {{ post.title }}
+  </li>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
