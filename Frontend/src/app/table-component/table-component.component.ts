@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, Post } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
 
 @Component({
   selector: 'app-table-component',
@@ -14,11 +15,14 @@ export class TableComponentComponent {
   postsList!: Post[];
   displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email',
     'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime',
-    'View', 'Edit', 'Delete'];
+    'view', 'edit', 'delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
 
   @Input()
   userTemplate: boolean = true;
+
+  //dialog test 
+  name!: string;
 
   public constructor(private http: HttpClient, public dialog: MatDialog) {
   }
@@ -44,5 +48,16 @@ export class TableComponentComponent {
         this.postsList = response;
         console.log(this.userList);
       });
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogElementsPostsDialog,
+      {
+        data: { name: this.name },
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

@@ -1,22 +1,20 @@
-import {Component} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-@Component({
-  selector: 'app-view-dialog',
-  templateUrl: 'view-dialog.component-button.html'
-})
-
-export class ViewDialogComponent {
-  constructor(public dialog: MatDialog) { }
-
-  openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
-  }
+export interface DialogData {
+  name: string;
 }
 
 @Component({
-  selector: 'dialog-elements-example-dialog',
+  selector: 'dialog-elements-posts-dialog',
   templateUrl: 'view-dialog.component.html',
 })
-export class DialogElementsExampleDialog {
+export class DialogElementsPostsDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogElementsPostsDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) { }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
