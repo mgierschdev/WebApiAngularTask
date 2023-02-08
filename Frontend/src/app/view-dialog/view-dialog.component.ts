@@ -55,10 +55,10 @@ export class DialogElementsEditDialog {
     var lastNameF = this.lastName.value?.toString();
     var phoneNumberF = this.phoneNumber.value?.toString();
 
-    user.email = emailF != undefined && emailF != "" ? emailF : user.email;
-    user.firstName = firstNameF != undefined && firstNameF != ""  ? firstNameF : user.firstName;
-    user.lastName = lastNameF != undefined  && lastNameF != "" ? lastNameF : user.lastName;
-    user.phoneNumber = phoneNumberF != undefined  && phoneNumberF != "" ? phoneNumberF : user.phoneNumber;
+    user.email = emailF != undefined && emailF != "" && this.email.valid ? emailF : user.email;
+    user.firstName = firstNameF != undefined && firstNameF != "" && this.firstName ? firstNameF : user.firstName;
+    user.lastName = lastNameF != undefined && lastNameF != "" && this.lastName ? lastNameF : user.lastName;
+    user.phoneNumber = phoneNumberF != undefined && phoneNumberF != "" && this.phoneNumber ? phoneNumberF : user.phoneNumber;
 
     this.dialogRef.close({
       data: user
