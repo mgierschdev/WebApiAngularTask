@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Injectable, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User, Post, APIEndpoints } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { throwError } from 'rxjs';
 })
 
 export class TableComponentComponent {
-  userList!: User[];
+  public userList!: User[];
   postsList!: Post[];
   displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'creationTime', 'view', 'edit', 'delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
@@ -71,6 +71,12 @@ export class TableComponentComponent {
       });
   }
 
+  public CreateUser(user: User) {
+
+    console.log("fields " + user.firstName + " " + user.lastName + " " + user.email + " " + user.phoneNumber);
+    var response = this.http.post<User>(APIEndpoints.USER_CREATE, user).subscribe(response => { });
+  }
+
   openDialog(type: DialogType, user: User) {
 
     if (type == DialogType.VIEW) {
@@ -90,7 +96,6 @@ export class TableComponentComponent {
         }
         // we update the API
         this.UpdateUserData(result.data);
-        console.log("User " + user.firstName + " updated ");
       });
 
     } else if (type == DialogType.DELETE) {
@@ -107,7 +112,6 @@ export class TableComponentComponent {
 
         this.DeleteUser(result.data);
       });
-
     }
   }
 

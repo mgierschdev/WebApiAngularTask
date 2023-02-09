@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { APIEndpoints, DialogType, User } from '../app.component';
 import { DialogElementsCreateDialog } from '../view-dialog/view-dialog.component';
@@ -18,21 +18,23 @@ export class GridComponentComponent {
   }
 
   public CreateUser(user: User) {
-    var response = this.http.post<User>(APIEndpoints.USER_UPDATE, user)
-      .subscribe(response => {
-        console.log("API response: " + response);
-      });
+
+    console.log("fields " + user.firstName + " " + user.lastName + " " + user.email + " " + user.phoneNumber);
+    var response = this.http.post<User>(APIEndpoints.USER_CREATE, user).subscribe(response => { });
   }
 
   public openDialog(type: DialogType) {
     if (type != DialogType.CREATE) {
       return;
     }
-    const dialogRef = this.dialog.open(DialogElementsCreateDialog,{});
+    const dialogRef = this.dialog.open(DialogElementsCreateDialog, {});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result.data == undefined) {
+        return;
+      }
+      //create user
+      this.CreateUser(result.data);
     });
   }
-
 }

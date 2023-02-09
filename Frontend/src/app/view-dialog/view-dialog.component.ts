@@ -1,8 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../app.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogAction } from '../app.component';
+import { FormControl, Validators } from '@angular/forms';
+
+
+
+export enum FormErrorType {
+  EMAIL_ERROR = 1,
+  NAME_ERROR = 2,
+  PHONE_ERROR = 3
+}
 
 // View posts
 @Component({
@@ -38,11 +45,18 @@ export class DialogElementsEditDialog {
     public dialogRef: MatDialogRef<DialogElementsEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User) { }
 
-  getErrorMessage() {
+  getErrorMessage(type: FormErrorType) {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
     }
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+
+    if (type == FormErrorType.EMAIL_ERROR) {
+      return this.email.hasError('email') ? 'Not a valid email' : '';
+    } else if (type == FormErrorType.NAME_ERROR) {
+      return "Not valid";
+    } else {
+      return "Phone number invalid";
+    }
   }
 
   onNoClick(): void {
@@ -96,9 +110,9 @@ export class DialogElementsDeleteDialog {
 
 export class DialogElementsCreateDialog {
 
-  public firstName = new FormControl('');
-  public lastName = new FormControl('');
-  public phoneNumber = new FormControl('');
+  public firstName = new FormControl('', [Validators.required]);
+  public lastName = new FormControl('', [Validators.required]);
+  public phoneNumber = new FormControl('', [Validators.required]);
   public email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
@@ -117,19 +131,40 @@ export class DialogElementsCreateDialog {
     this.dialogRef.close();
   }
 
-  acceptedDialog(user: User) {
+  acceptedDialog() {
     var emailF = this.email.value?.toString();
     var firstNameF = this.firstName.value?.toString();
     var lastNameF = this.lastName.value?.toString();
     var phoneNumberF = this.phoneNumber.value?.toString();
 
-    user.email = emailF != undefined && emailF != "" && this.email.valid ? emailF : user.email;
-    user.firstName = firstNameF != undefined && firstNameF != "" && this.firstName ? firstNameF : user.firstName;
-    user.lastName = lastNameF != undefined && lastNameF != "" && this.lastName ? lastNameF : user.lastName;
-    user.phoneNumber = phoneNumberF != undefined && phoneNumberF != "" && this.phoneNumber ? phoneNumberF : user.phoneNumber;
+    // if any is null we dont close the form 
+    if (emailF == "" || firstNameF == "" || lastNameF == "" || phoneNumberF == "") {
+      return;
+    }
+
+    const userData: User = {
+      email: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      id: 0,
+      profileViews: 0,
+      lastLoginTime: '',
+      creationTime: '',
+      posts: []
+    };
+
+    userData.email = emailF != undefined ? emailF : "";
+    userData.firstName = firstNameF != undefined ? firstNameF : "";
+    userData.lastName = lastNameF != undefined ? lastNameF : "";
+    userData.phoneNumber = phoneNumberF != undefined ? phoneNumberF : "";
+
+    if (!this.email.valid || !this.firstName.valid || !this.lastName.valid || !this.phoneNumber.valid) {
+      return;
+    }
 
     this.dialogRef.close({
-      data: user
+      data: userData
     });
   }
 }
