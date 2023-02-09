@@ -3,8 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../app.component';
 import { FormControl, Validators } from '@angular/forms';
 
-
-
 export enum FormErrorType {
   EMAIL_ERROR = 1,
   NAME_ERROR = 2,
@@ -36,9 +34,9 @@ export class DialogElementsPostsDialog {
 
 export class DialogElementsEditDialog {
 
-  public firstName = new FormControl('');
-  public lastName = new FormControl('');
-  public phoneNumber = new FormControl('');
+  public firstName = new FormControl('', Validators.minLength(2));
+  public lastName = new FormControl('', Validators.minLength(2));
+  public phoneNumber = new FormControl('', Validators.pattern("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"));
   public email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
@@ -110,9 +108,9 @@ export class DialogElementsDeleteDialog {
 
 export class DialogElementsCreateDialog {
 
-  public firstName = new FormControl('', [Validators.required]);
-  public lastName = new FormControl('', [Validators.required]);
-  public phoneNumber = new FormControl('', [Validators.required]);
+  public firstName = new FormControl('', Validators.minLength(2));
+  public lastName = new FormControl('', Validators.minLength(2));
+  public phoneNumber = new FormControl('', Validators.pattern("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"));
   public email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
