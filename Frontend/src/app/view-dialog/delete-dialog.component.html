@@ -1,11 +1,8 @@
 <h1 mat-dialog-title>{{data.firstName}} Posts</h1>
 <div mat-dialog-content>
-  <p><b>User:</b> {{data.email}}</p>
-  <p><b>Number of posts:</b> {{data.posts.length}}</p>
-  <li *ngFor="let post of data.posts">
-    <b>Title:</b> {{ post.title }}
-  </li>
+  <p>Do you want to delete the user <b>{{data.firstName}}</b> with the ID <b>{{data.id}}</b> </p>
 </div>
 <div mat-dialog-actions>
+  <button mat-button (click)="acceptedDialog(data)" color="warn">Accept</button>
   <button mat-button mat-dialog-close>Close</button>
 </div>

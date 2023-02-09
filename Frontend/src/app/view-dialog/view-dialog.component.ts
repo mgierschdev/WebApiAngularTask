@@ -71,11 +71,18 @@ export class DialogElementsEditDialog {
   selector: 'dialog-elements-delete-dialog',
   templateUrl: 'delete-dialog.component.html',
 })
+
 export class DialogElementsDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogElementsDeleteDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: User,) { }
+
+  acceptedDialog(user: User) {
+    this.dialogRef.close({
+      data: user
+    });
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -86,6 +93,7 @@ export class DialogElementsDeleteDialog {
   selector: 'dialog-elements-create-dialog',
   templateUrl: 'create-dialog.component.html',
 })
+
 export class DialogElementsCreateDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogElementsCreateDialog>,
