@@ -18,11 +18,11 @@
         <div class="content" role="main" style="width: 100%; height: 100%;">
             <mat-tab-group>
                 <mat-tab label="Users">
-                    <app-table-component></app-table-component>
+                    <app-table-component [userList]= userList></app-table-component>
                 </mat-tab>
 
                 <mat-tab label="Posts">
-                    <app-table-component [userTemplate]="false"></app-table-component>
+                    <app-table-component [postsList]= postsList [userTemplate]="false"></app-table-component>
                 </mat-tab>
             </mat-tab-group>
         </div>

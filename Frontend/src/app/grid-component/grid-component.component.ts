@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { APIEndpoints, DialogType, User } from '../app.component';
+import { APIEndpoints, DialogType, Post, User } from '../app.component';
 import { DialogElementsCreateDialog } from '../view-dialog/view-dialog.component';
 
 @Component({
@@ -13,14 +13,39 @@ import { DialogElementsCreateDialog } from '../view-dialog/view-dialog.component
 export class GridComponentComponent {
   title = 'Example .Net 0.6 CRUD';
   today: number = Date.now();
+  @Input()
+  public userList!: User[];
+  @Input()
+  public postsList!: Post[];
 
   public constructor(private http: HttpClient, public dialog: MatDialog) {
   }
 
-  public CreateUser(user: User) {
+  ngOnInit() {
+    this.GetUserData();
+    this.GetPostData();
+  }
 
-    console.log("fields " + user.firstName + " " + user.lastName + " " + user.email + " " + user.phoneNumber);
-    var response = this.http.post<User>(APIEndpoints.USER_CREATE, user).subscribe(response => { });
+  public CreateUser(user: User) {
+    var response = this.http.post<User>(APIEndpoints.USER_CREATE, user).subscribe(response => { 
+      this.GetUserData();
+    });
+  }
+
+  public GetUserData() {
+    var response = this.http
+      .get<User[]>(APIEndpoints.USER_GET_ALL)
+      .subscribe(response => {
+        this.userList = response;
+      });
+  }
+
+  public GetPostData() {
+    var response = this.http
+      .get<Post[]>(APIEndpoints.POSTS_GET_ALL)
+      .subscribe(response => {
+        this.postsList = response;
+      });
   }
 
   public openDialog(type: DialogType) {

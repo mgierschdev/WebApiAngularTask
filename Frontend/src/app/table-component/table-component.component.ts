@@ -1,8 +1,8 @@
-import { Component, Injectable, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User, Post, APIEndpoints } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogElementsCreateDialog, DialogElementsDeleteDialog, DialogElementsEditDialog, DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
+import { DialogElementsDeleteDialog, DialogElementsEditDialog, DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
 import { DialogType } from '../app.component';
 import { throwError } from 'rxjs';
 
@@ -13,7 +13,9 @@ import { throwError } from 'rxjs';
 })
 
 export class TableComponentComponent {
+  @Input()
   public userList!: User[];
+  @Input()
   postsList!: Post[];
   displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'creationTime', 'view', 'edit', 'delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
@@ -24,17 +26,11 @@ export class TableComponentComponent {
   public constructor(private http: HttpClient, public dialog: MatDialog) {
   }
 
-  ngOnInit() {
-    this.GetUserData();
-    this.GetPostData();
-  }
-
   public GetUserData() {
     var response = this.http
       .get<User[]>(APIEndpoints.USER_GET_ALL)
       .subscribe(response => {
         this.userList = response;
-        console.log(this.userList);
       });
   }
 
@@ -43,15 +39,11 @@ export class TableComponentComponent {
       .get<Post[]>(APIEndpoints.POSTS_GET_ALL)
       .subscribe(response => {
         this.postsList = response;
-        console.log(this.userList);
       });
   }
 
   public UpdateUserData(user: User) {
-    var response = this.http.post<User>(APIEndpoints.USER_UPDATE, user)
-      .subscribe(response => {
-        console.log("API response: " + response);
-      });
+    var response = this.http.post<User>(APIEndpoints.USER_UPDATE, user).subscribe(response => { });
   }
 
   public DeleteUser(user: User) {
@@ -72,8 +64,6 @@ export class TableComponentComponent {
   }
 
   public CreateUser(user: User) {
-
-    console.log("fields " + user.firstName + " " + user.lastName + " " + user.email + " " + user.phoneNumber);
     var response = this.http.post<User>(APIEndpoints.USER_CREATE, user).subscribe(response => { });
   }
 
@@ -116,16 +106,6 @@ export class TableComponentComponent {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
