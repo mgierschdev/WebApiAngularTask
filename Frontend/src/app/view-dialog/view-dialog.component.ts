@@ -95,11 +95,41 @@ export class DialogElementsDeleteDialog {
 })
 
 export class DialogElementsCreateDialog {
+
+  public firstName = new FormControl('');
+  public lastName = new FormControl('');
+  public phoneNumber = new FormControl('');
+  public email = new FormControl('', [Validators.required, Validators.email]);
+
   constructor(
     public dialogRef: MatDialogRef<DialogElementsCreateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User,
   ) { }
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  acceptedDialog(user: User) {
+    var emailF = this.email.value?.toString();
+    var firstNameF = this.firstName.value?.toString();
+    var lastNameF = this.lastName.value?.toString();
+    var phoneNumberF = this.phoneNumber.value?.toString();
+
+    user.email = emailF != undefined && emailF != "" && this.email.valid ? emailF : user.email;
+    user.firstName = firstNameF != undefined && firstNameF != "" && this.firstName ? firstNameF : user.firstName;
+    user.lastName = lastNameF != undefined && lastNameF != "" && this.lastName ? lastNameF : user.lastName;
+    user.phoneNumber = phoneNumberF != undefined && phoneNumberF != "" && this.phoneNumber ? phoneNumberF : user.phoneNumber;
+
+    this.dialogRef.close({
+      data: user
+    });
   }
 }

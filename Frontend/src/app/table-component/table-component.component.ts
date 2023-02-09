@@ -108,16 +108,6 @@ export class TableComponentComponent {
         this.DeleteUser(result.data);
       });
 
-    } else if (type == DialogType.CREATE) {
-      const dialogRef = this.dialog.open(DialogElementsCreateDialog,
-        {
-          data: user,
-        });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-
     }
   }
 
