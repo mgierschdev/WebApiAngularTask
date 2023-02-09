@@ -71,7 +71,7 @@ public class UserRepository : IUserRepository
 
     public Boolean DeleteUser(APIUser user)
     {
-        context.Remove(context.Users.Single(a => a.Id == 1));
+        context.Remove(context.Users.Single(a => a.Id == user.Id));
         return context.SaveChanges() > 0;
     }
 }
