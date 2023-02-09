@@ -14,7 +14,7 @@ import { DialogType } from '../app.component';
 export class TableComponentComponent {
   userList!: User[];
   postsList!: Post[];
-  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'lastLoginTime', 'creationTime', 'view', 'edit', 'delete'];
+  displayedColumnsUser: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'profileViews', 'creationTime', 'view', 'edit', 'delete'];
   displayedColumnsPost: string[] = ['id', 'title', 'content', 'creationTime'];
 
   @Input()
