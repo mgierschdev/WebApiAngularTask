@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { User, Post, APIEndpoints } from '../app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogElementsCreateDialog, DialogElementsDeleteDialog, DialogElementsEditDialog, DialogElementsPostsDialog } from '../view-dialog/view-dialog.component';
@@ -48,11 +48,26 @@ export class TableComponentComponent {
   }
 
   public UpdateUserData(user: User) {
-
-    console.log("updating user " + user.id + " " + user.email + " " + user.firstName + " " + user.lastName + " " + user.phoneNumber);
     var response = this.http.post<User>(APIEndpoints.USER_UPDATE, user)
       .subscribe(response => {
         console.log("API response: " + response);
+      });
+  }
+
+  public DeleteUser(user: User) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: user,
+    };
+
+    var response = this.http.delete<User>(APIEndpoints.USER_DELETE, options)
+      .subscribe(response => {
+        if (response == null) {
+          // we refresh the table 
+          this.GetUserData();
+        }
       });
   }
 
@@ -70,14 +85,12 @@ export class TableComponentComponent {
         });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed ' + result.data);
-
-        if (result.data != undefined) {
-          // we update the API
-          this.UpdateUserData(result.data);
-          console.log(result.data.firstName);
-
+        if (result.data == undefined) {
+          return;
         }
+        // we update the API
+        this.UpdateUserData(result.data);
+        console.log("User " + user.firstName + " updated ");
       });
 
     } else if (type == DialogType.DELETE) {
@@ -87,8 +100,14 @@ export class TableComponentComponent {
         });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+
+        if (result.data == undefined) {
+          return;
+        }
+
+        this.DeleteUser(result.data);
       });
+
     } else if (type == DialogType.CREATE) {
       const dialogRef = this.dialog.open(DialogElementsCreateDialog,
         {
