@@ -1,10 +1,14 @@
 FROM node:16-alpine
 
-WORKDIR /FrontEnd
+RUN mkdir -p /frontend
 
-COPY package*.json ./
+WORKDIR /frontend
 
-RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
+COPY package*.json /frontend/
+
+RUN npm install
+
+COPY . /frontend/
 
 EXPOSE 4200
 
