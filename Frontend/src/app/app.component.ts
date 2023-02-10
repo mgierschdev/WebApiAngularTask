@@ -32,11 +32,11 @@ export enum DialogType {
 }
 
 export enum APIEndpoints {
-  USER_GET_ALL = "https://localhost:7066/User/All",
-  USER_CREATE = "https://localhost:7066/User/Create",
-  USER_UPDATE = "https://localhost:7066/User/Update",
-  USER_DELETE = "https://localhost:7066/User/Delete",
-  POSTS_GET_ALL = "https://localhost:7066/User/Posts",
+  USER_GET_ALL = "http://localhost:7066/User/All",
+  USER_CREATE = "http://localhost:7066/User/Create",
+  USER_UPDATE = "http://localhost:7066/User/Update",
+  USER_DELETE = "http://localhost:7066/User/Delete",
+  POSTS_GET_ALL = "http://localhost:7066/User/Posts",
 }
 
 @Component({

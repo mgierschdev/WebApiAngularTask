@@ -5,3 +5,8 @@ services:
     build: FrontEnd/
     ports:
       - "4200:4200"
+  api:
+    container_name: net-backend
+    build: Backend/
+    ports:
+      - "7066:7066"

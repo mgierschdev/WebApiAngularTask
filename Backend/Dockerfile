@@ -1,15 +1,13 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-WORKDIR /Backend
+# Working from root Backend directory
+FROM mcr.microsoft.com/dotnet/sdk:6.0
 
-# Copy everything
-COPY . ./
-# Restore as distinct layers
-RUN dotnet restore
-# Build and publish a release
-RUN dotnet publish -c Release -o out
+RUN mkdir -p /backend
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /Backend
-COPY --from=build-env /Backend/out .
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+WORKDIR /backend/UserBackend/API
+
+EXPOSE 7066
+
+Copy . /backend/
+
+CMD ["dotnet", "run"]
+ 
