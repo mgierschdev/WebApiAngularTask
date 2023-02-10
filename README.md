@@ -9,6 +9,7 @@ The following project contains:
     - The API depends on the Domain and the Infrastructure, the Infrastructure on the Domain, the Domain does not depend on any and contains all the buss logic and validations.
     - The validation of the backend fields was done using the [fluent validation sintax](https://docs.fluentvalidation.net/en/latest/).
 - A Docker composer composer file to orchestrate both services with a single command, each service contains it's own Dockerfile to start the service.
+- This repository contains 2 branches, one for development and one for the final release
 
 ### <b>To start with Docker</b>:
 `docker compose up`
