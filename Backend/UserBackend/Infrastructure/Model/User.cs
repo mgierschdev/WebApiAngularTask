@@ -17,11 +17,6 @@ public class User
     public DateTime CreationTime { get; set; }
     public List<Post> Posts { get; set; }
 
-    public User()
-    {
-
-    }
-
     public User(APIUser apiUser)
     {
         this.FirstName = apiUser.FirstName;
