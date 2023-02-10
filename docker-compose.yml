@@ -1,12 +1,12 @@
-version: '3.8'
+version: "3.9"
 services:
-  dotnet:
-    image: xxxxx
+  web:
+    container_name: angular-frontend
+    build: FrontEnd/
     ports:
-      - "000:000"
-    container_name: backend
-  angular:
-    image: xxxxxx
+      - "4200:4200"
+  api:
+    container_name: net-backend
+    build: Backend/
     ports:
-      - "000:000"
-    container_name: frontend
+      - "7066:7066"
