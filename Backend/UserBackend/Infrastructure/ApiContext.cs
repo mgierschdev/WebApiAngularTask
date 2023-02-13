@@ -1,7 +1,6 @@
 ﻿namespace Infrastructure;
 using System;
 using Infrastructure.Model;
-using Infrastructure.Util;
 using Microsoft.EntityFrameworkCore;
 
 public class ApiContext : DbContext

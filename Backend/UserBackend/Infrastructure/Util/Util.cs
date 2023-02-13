@@ -1,160 +1,124 @@
-﻿namespace Infrastructure.Util;
+﻿namespace Infrastructure.Helper;
 using System;
 using System.Net.NetworkInformation;
 using Infrastructure.Model;
 
-public static class Util
+public class Util
 {
-    public static List<User> GetMockUserList()
+    private Random Random;
+
+    public Util()
     {
-        return new List<User>()
+        Random = new Random();
+    }
+
+    public List<User> GetMockUserList()
+    {
+        List<User> list = new List<User>();
+
+        // generates 20 random mock users
+        for (int i = 0; i <= 20; i++)
+        {
+            List<Post> posts = new List<Post>();
+            int numberPosts = Random.Next(1, 10);
+            for (int j = 0; j <= numberPosts; j++)
             {
+                Post currentPost = new Post("Title - " + Random.Next(0, 10)+ "-" + Random.Next(0, 1000), "Content - " + Random.Next(0, 100) + "-" + Random.Next(0, 100), DateTime.Now);
+                posts.Add(currentPost);
 
-            new User {
-                    FirstName = "TestUserFirstName",
-                    LastName =  "TestUserSecondName",
-                    Email = "email1@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 1", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 2", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 3", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 4", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+            }
+            string name = GetRandomName();
+            string email = GetRandomEmail(name);
+            User current = new User(name, GetRandomLastName(), email, GetRandomPhoneAustrianNumber(), Random.Next(0, 1500), DateTime.Now, DateTime.Now, posts);
+            list.Add(current);
+        }
+        return list;
+    }
 
-            new User {
-                    FirstName = "2TestUserFirstName",
-                    LastName =  "2TestUserSecondName",
-                    Email = "email2@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 5", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 6", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+    private string GetRandomEmail(string name)
+    {
+        List<string> emailProviders = new List<string>
+        {
+            "@google.com",
+            "@yahho.com",
+            "@hotmail.com",
+            "@outlook.com",
+            "@icloud.com"
+        };
 
-            new User {
-                    FirstName = "3TestUserFirstName",
-                    LastName =  "3TestUserSecondName",
-                    Email = "email3@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 7", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+        return name + Random.Next(0, 100) + emailProviders[Random.Next(0, emailProviders.Count)];
+    }
 
-            new User {
-                    FirstName = "4TestUserFirstName",
-                    LastName =  "4TestUserSecondName",
-                    Email = "email4@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 8", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 9", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 10", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 11", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+    private string GetRandomName()
+    {
+        // source: top most common names in austria https://en.wikipedia.org/wiki/List_of_most_popular_given_names
+        List<string> names = new List<string>{
+            "Marie",
+            "Emilia",
+            "Anna",
+            "Emma",
+            "Lena",
+            "Mia",
+            "Laura",
+            "Anna",
+            "Hannah",
+            "Lea",
+            "Paul",
+            "Jakob",
+            "Noah",
+            "Elias",
+            "David",
+            "Felix",
+            "Leon",
+            "Thomas",
+            "Tobias",
+            "Theo",
+            "Emil",
+            "Ben"
+        };
 
-                new User {
-                    FirstName = "5TestUserFirstName",
-                    LastName =  "5TestUserSecondName",
-                    Email = "email5@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 12", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+        return names[Random.Next(0, names.Count)];
+    }
 
-            new User {
-                    FirstName = "6TestUserFirstName",
-                    LastName =  "6TestUserSecondName",
-                    Email = "email6@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 13", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 14", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+    private string GetRandomLastName()
+    {
+        // source: List of most common surnames in Europe https://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Europe
+        List<string> lastname = new List<string>{
+            "Gruber",
+            "Huber",
+            "Bauer",
+            "Wagner",
+            "Müller",
+            "Pichler",
+            "Karl",
+            "Steiner",
+            "Moser",
+            "Mayer",
+            "Hofer",
+            "Leitner",
+            "Berger",
+            "Fuchs",
+            "Eder",
+            "Fischer",
+            "Schmid",
+            "Weber",
+            "Schwarz",
+            "Schneider",
+            "Reiter",
+            "Mayr"
+        };
 
-            new User {
-                    FirstName = "7TestUserFirstName",
-                    LastName =  "7TestUserSecondName",
-                    Email = "email7@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 13", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 14", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
+        return lastname[Random.Next(0, lastname.Count)];
+    }
 
-            new User {
-                    FirstName = "8TestUserFirstName",
-                    LastName =  "8TestUserSecondName",
-                    Email = "email8@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 15", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 16", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
-
-            new User {
-                    FirstName = "9TestUserFirstName",
-                    LastName =  "9TestUserSecondName",
-                    Email = "email9@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 17", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 18", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
-
-            new User {
-                    FirstName = "10TestUserFirstName",
-                    LastName =  "10TestUserSecondName",
-                    Email = "email10@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 19", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 20", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
-
-            new User {
-                    FirstName = "11TestUserFirstName",
-                    LastName =  "11TestUserSecondName",
-                    Email = "email11@provider.com",
-                    PhoneNumber = "+4312345678",
-                    ProfileViews = 0,
-                    CreationTime = DateTime.Now,
-                    LastLoginTime = DateTime.Now,
-                    Posts = new List<Post> {
-                        new Post {Title = "Post Title 21", Content = "Content of the post", CreationTime = DateTime.Now},
-                        new Post {Title = "Post Title 22", Content = "Content of the post", CreationTime = DateTime.Now},
-                    }},
-
-            };
+    // returns a 8 digit number
+    public string GetRandomPhoneAustrianNumber()
+    {
+        string number = "";
+        for (int i = 0; i <= 9; i++)
+        {
+            number += "" + Random.Next(0, 9);
+        }
+        return "+43" + number;
     }
 }
