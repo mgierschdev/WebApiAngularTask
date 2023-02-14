@@ -15,7 +15,7 @@ The following project contains:
 ## Frontend
 - A <b>Frontend</b> (Client side) Angular CRUD sample app
     - The Frontend contains an Angular Material Grid (Grid overview) which at the same time contains child Table components and Dialog components to display the API data.
-    - The validations of the Frontend fields were done according to the Angular Form Validator specification.  
+    - The validations of the Frontend where done using the fluent validation syntax.  
     - UI Colors, design was selected from the default angular material design style (css). 
 
 ## Other
