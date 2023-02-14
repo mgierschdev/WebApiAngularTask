@@ -23,6 +23,11 @@ public class UserValidator : AbstractValidator<APIUser>
             .EmailAddress();
 
         // Regex validates a 10 digit phone number, in different formats; + or ( 2 digits ) or 3 digits - 4-6 digits, 
+        // +48, (48) + 9 digits 
+        // +47-12345678
+        // (47)-1234-5678
+        // (country code - 2 digits)-(eight other digits)
+
         RuleFor(APIUser => APIUser.PhoneNumber)
             .NotNull()
             .Matches("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
@@ -34,7 +39,6 @@ public class UserValidator : AbstractValidator<APIUser>
     {
         RuleFor(APIUser => APIUser.Id)
             .NotNull();
-
 
         RuleFor(APIUser => APIUser.FirstName)
             .Length(2, 250);

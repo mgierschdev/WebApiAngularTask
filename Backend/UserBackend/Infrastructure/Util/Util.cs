@@ -115,7 +115,7 @@ public class Util
     public string GetRandomPhoneAustrianNumber()
     {
         string number = "";
-        for (int i = 0; i <= 9; i++)
+        for (int i = 0; i < 8; i++)
         {
             number += "" + Random.Next(0, 9);
         }
