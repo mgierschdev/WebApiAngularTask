@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../app.component';
+import { Regex, User } from '../app.component';
 import { FormControl, Validators } from '@angular/forms';
+import { Validator } from 'fluentvalidation-ts';
 
 export enum FormErrorType {
   EMAIL_ERROR = 1,
@@ -26,6 +27,52 @@ export class DialogElementsPostsDialog {
   }
 }
 
+// the package found for fluent validation in the npm register does not support email validationss
+type UserValidator = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}
+
+class PersonUpdateValidator extends Validator<UserValidator> {
+  constructor() {
+    super();
+
+    this.ruleFor('firstName')
+      .length(2, 250)
+      .withMessage('firstName');
+
+    this.ruleFor('lastName')
+      .length(2, 250)
+      .withMessage('lastName');
+
+    this.ruleFor('phoneNumber')
+      .matches(new RegExp(Regex.EMAIL))
+      .withMessage('phoneNumber');
+  }
+}
+
+class PersonCreateValidator extends Validator<UserValidator> {
+  constructor() {
+    super();
+
+    this.ruleFor('firstName')
+      .notEmpty()
+      .length(2, 250)
+      .withMessage('firstName');
+
+    this.ruleFor('lastName')
+      .length(2, 250)
+      .notEmpty()
+      .withMessage('lastName');
+
+    this.ruleFor('phoneNumber')
+      .notEmpty()
+      .matches(new RegExp(Regex.EMAIL))
+      .withMessage('phoneNumber');
+  }
+}
+
 // Edit user 
 @Component({
   selector: 'dialog-elements-edit-dialog',
@@ -34,14 +81,17 @@ export class DialogElementsPostsDialog {
 
 export class DialogElementsEditDialog {
 
+  public fluentValidator: PersonUpdateValidator;
   public firstName = new FormControl('', Validators.minLength(2));
   public lastName = new FormControl('', Validators.minLength(2));
-  public phoneNumber = new FormControl('', Validators.pattern("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"));
+  public phoneNumber = new FormControl('', Validators.pattern(Regex.EMAIL));
   public email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
     public dialogRef: MatDialogRef<DialogElementsEditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: User) { }
+    @Inject(MAT_DIALOG_DATA) public data: User) {
+    this.fluentValidator = new PersonUpdateValidator();
+  }
 
   getErrorMessage(type: FormErrorType) {
     if (this.email.hasError('required')) {
@@ -62,11 +112,36 @@ export class DialogElementsEditDialog {
   }
 
   acceptedDialog(user: User) {
+    // form data
     var emailF = this.email.value?.toString();
     var firstNameF = this.firstName.value?.toString();
     var lastNameF = this.lastName.value?.toString();
     var phoneNumberF = this.phoneNumber.value?.toString();
 
+    // fluent validation response
+    const userValidator: UserValidator = {
+      firstName: firstNameF != undefined && firstNameF != "" ? firstNameF : user.firstName,
+      lastName: lastNameF != undefined && lastNameF != "" ? lastNameF : user.lastName,
+      phoneNumber: phoneNumberF != undefined && phoneNumberF != "" ? phoneNumberF : user.phoneNumber,
+    };
+
+    var fluentValidationResponse = this.fluentValidator.validate(userValidator);
+    console.log(fluentValidationResponse);
+    if (fluentValidationResponse) {
+      if (fluentValidationResponse["firstName"]) {
+        return;
+      }
+
+      if (fluentValidationResponse["lastName"]) {
+        return;
+      }
+
+      if (fluentValidationResponse["phoneNumber"]) {
+        return;
+      }
+    }
+
+    // Angular UI assignment 
     user.email = emailF != undefined && emailF != "" && this.email.valid ? emailF : user.email;
     user.firstName = firstNameF != undefined && firstNameF != "" && this.firstName ? firstNameF : user.firstName;
     user.lastName = lastNameF != undefined && lastNameF != "" && this.lastName ? lastNameF : user.lastName;
@@ -108,15 +183,19 @@ export class DialogElementsDeleteDialog {
 
 export class DialogElementsCreateDialog {
 
+  public fluentValidator: PersonCreateValidator;
+
   public firstName = new FormControl('', Validators.minLength(2));
   public lastName = new FormControl('', Validators.minLength(2));
-  public phoneNumber = new FormControl('', Validators.pattern("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"));
+  public phoneNumber = new FormControl('', Validators.pattern(Regex.EMAIL));
   public email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(
     public dialogRef: MatDialogRef<DialogElementsCreateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-  ) { }
+  ) {
+    this.fluentValidator = new PersonCreateValidator();
+  }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -130,10 +209,35 @@ export class DialogElementsCreateDialog {
   }
 
   acceptedDialog() {
+    // Form data  
     var emailF = this.email.value?.toString();
     var firstNameF = this.firstName.value?.toString();
     var lastNameF = this.lastName.value?.toString();
     var phoneNumberF = this.phoneNumber.value?.toString();
+
+    //Fluent validator
+    // fluent validation response
+    const userValidator: UserValidator = {
+      firstName: firstNameF != undefined && firstNameF != "" ? firstNameF : "",
+      lastName: lastNameF != undefined && lastNameF != "" ? lastNameF : "",
+      phoneNumber: phoneNumberF != undefined && phoneNumberF != "" ? phoneNumberF : "",
+    };
+
+    var fluentValidationResponse = this.fluentValidator.validate(userValidator);
+    console.log(fluentValidationResponse);
+    if (fluentValidationResponse) {
+      if (fluentValidationResponse["firstName"]) {
+        return;
+      }
+
+      if (fluentValidationResponse["lastName"]) {
+        return;
+      }
+
+      if (fluentValidationResponse["phoneNumber"]) {
+        return;
+      }
+    }
 
     // if any is null we dont close the form 
     if (emailF == "" || firstNameF == "" || lastNameF == "" || phoneNumberF == "") {

@@ -39,6 +39,10 @@ export enum APIEndpoints {
   POSTS_GET_ALL = "http://localhost:7066/User/Posts",
 }
 
+export enum Regex {
+  EMAIL = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$"
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
